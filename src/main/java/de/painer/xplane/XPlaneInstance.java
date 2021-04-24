@@ -1,7 +1,14 @@
 package de.painer.xplane;
 
+import java.io.IOException;
+import java.net.SocketAddress;
+
 public interface XPlaneInstance {
 
-    XPlane connect();
+    SocketAddress getAddress();
+
+    String getName();
+
+    XPlane connect() throws IOException;
 
 }

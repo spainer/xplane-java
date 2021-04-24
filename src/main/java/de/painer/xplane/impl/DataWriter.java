@@ -3,11 +3,11 @@ package de.painer.xplane.impl;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-final class DataWriter {
+public final class DataWriter {
 
     private final ByteBuffer buffer;
 
-    DataWriter(int size) {
+    public DataWriter(int size) {
         buffer = ByteBuffer.allocate(size);
         buffer.order(ByteOrder.nativeOrder());
     }

@@ -1,7 +1,8 @@
 package de.painer.xplane.impl;
 
 import java.io.IOException;
-import java.net.SocketAddress;
+import java.net.InetSocketAddress;
+import java.net.StandardProtocolFamily;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.channels.DatagramChannel;
@@ -12,20 +13,20 @@ import de.painer.xplane.XPlane;
 import de.painer.xplane.XPlaneListener;
 import de.painer.xplane.data.Position;
 
-final class XPlaneUDP implements XPlane {
+public final class XPlaneUDP implements XPlane {
 
     private final Thread receiveThread;
     
     private final DatagramChannel channel;
 
-    private final SocketAddress address;
+    private final InetSocketAddress address;
 
     private final List<XPlaneListener> listeners = new ArrayList<>();
 
     private final List<String> watchedDatarefs = new ArrayList<>();
 
-    XPlaneUDP(DatagramChannel channel, SocketAddress address) {
-        this.channel = channel;
+    public XPlaneUDP(InetSocketAddress address) throws IOException {
+        this.channel = DatagramChannel.open(StandardProtocolFamily.INET);
         this.address = address;
 
         receiveThread = new Thread(this::receiveLoop, "xplane-receive");

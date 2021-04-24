@@ -2,11 +2,11 @@ package de.painer.xplane.impl;
 
 import java.nio.ByteBuffer;
 
-final class DataReader {
+public final class DataReader {
 
     private final ByteBuffer buffer;
 
-    DataReader(ByteBuffer buffer) {
+    public DataReader(ByteBuffer buffer) {
         this.buffer = buffer;
     }
 
@@ -46,7 +46,16 @@ final class DataReader {
         return buffer.getDouble();
     }
 
-    public String readString(int length) {
+    public String readString(int maxLength) {
+        StringBuilder sb = new StringBuilder();
+        int index = 0;
+        for (byte b = buffer.get(); b != 0 && index < maxLength; b = buffer.get(), index++) {
+            sb.append((char) b);
+        }
+        return sb.toString();
+    }
+
+    public String readFullString(int length) {
         StringBuilder sb = new StringBuilder();
         int index = 0;
         for (byte b = buffer.get(); b != 0 && index < length - 1; b = buffer.get(), index++) {
