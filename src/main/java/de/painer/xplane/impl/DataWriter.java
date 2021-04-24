@@ -1,4 +1,4 @@
-package de.painer.xplane;
+package de.painer.xplane.impl;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;

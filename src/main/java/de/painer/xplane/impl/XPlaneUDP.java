@@ -1,4 +1,4 @@
-package de.painer.xplane;
+package de.painer.xplane.impl;
 
 import java.io.IOException;
 import java.net.SocketAddress;
@@ -8,6 +8,8 @@ import java.nio.channels.DatagramChannel;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.painer.xplane.XPlane;
+import de.painer.xplane.XPlaneListener;
 import de.painer.xplane.data.Position;
 
 final class XPlaneUDP implements XPlane {
@@ -91,6 +93,14 @@ final class XPlaneUDP implements XPlane {
         writer.writeString(line3 != null ? line3 : "", 240);
         writer.writeString(line4 != null ? line4 : "", 240);
         send(writer.export());
+    }
+
+    @Override
+    public void close() throws Exception {
+        unwatchPosition();
+        for (String dataref : watchedDatarefs) {
+            unwatchDataref(dataref);
+        }
     }
 
     private void send(ByteBuffer buffer) {

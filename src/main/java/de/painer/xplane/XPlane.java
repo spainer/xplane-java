@@ -1,6 +1,6 @@
 package de.painer.xplane;
 
-public interface XPlane {
+public interface XPlane extends AutoCloseable {
 
     void addXPlaneListener(XPlaneListener listener);
 
