@@ -143,6 +143,8 @@ public final class XPlaneDiscovery {
             }
         }
         threads = null;
+        instances.clear();
+        lastBeacons.clear();
     }
 
     private static boolean checkNetworkInterface(NetworkInterface ifc) {
