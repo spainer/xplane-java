@@ -1,6 +1,6 @@
 module de.painer.xplane {
 
-    requires java.logging;
+    requires org.slf4j;
 
     exports de.painer.xplane;
     exports de.painer.xplane.data;

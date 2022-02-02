@@ -1,5 +1,8 @@
 package de.painer.xplane.data;
 
+/**
+ * RPOS message with current position.
+ */
 public record Position(
     double longitude,
     double latitude,

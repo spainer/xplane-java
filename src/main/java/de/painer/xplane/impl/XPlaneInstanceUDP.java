@@ -11,8 +11,15 @@ public final class XPlaneInstanceUDP implements XPlaneInstance {
 
     private final InetSocketAddress address;
 
+    private final String name;
+
     public XPlaneInstanceUDP(InetSocketAddress address, Beacon beacon) {
         this.address = address;
+
+        int major = beacon.versionNumber() / 10000;
+        int minor = (beacon.versionNumber() % 10000) / 100;
+        int revision = beacon.versionNumber() % 100;
+        name = String.format("%s%s (X-Plane %d.%dr%d)", beacon.host(), address, major, minor, revision);
     }
 
     @Override
@@ -22,13 +29,12 @@ public final class XPlaneInstanceUDP implements XPlaneInstance {
 
     @Override
     public String getName() {
-        // TODO Auto-generated method stub
-        return null;
+        return name;
     }
 
     @Override
     public XPlane connect() throws IOException {
-        return new XPlaneUDP(address);
+        return new XPlaneUDP(name, address);
     }
     
 }

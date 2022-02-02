@@ -1,5 +1,8 @@
 package de.painer.xplane.data;
 
+/**
+ * BEACON message.
+ */
 public record Beacon(
     int beaconMajorVersion,
     int beaconMinorVersion,

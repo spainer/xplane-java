@@ -15,6 +15,8 @@ import de.painer.xplane.data.Position;
 
 public final class XPlaneUDP implements XPlane {
 
+    private final String name;
+
     private final Thread receiveThread;
     
     private final DatagramChannel channel;
@@ -25,13 +27,19 @@ public final class XPlaneUDP implements XPlane {
 
     private final List<String> watchedDatarefs = new ArrayList<>();
 
-    public XPlaneUDP(InetSocketAddress address) throws IOException {
+    public XPlaneUDP(String name, InetSocketAddress address) throws IOException {
+        this.name = name;
         this.channel = DatagramChannel.open(StandardProtocolFamily.INET);
         this.address = address;
 
         receiveThread = new Thread(this::receiveLoop, "xplane-receive");
         receiveThread.setDaemon(true);
         receiveThread.start();
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     @Override
